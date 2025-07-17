@@ -4,7 +4,7 @@ import subprocess
 import time
 from datetime import datetime
 
-log_path = "/mnt/data/logs/temp_log.txt"
+log_path = "/mnt/data/logs/temp_mon.log"
 
 def get_temp():
     result = subprocess.run(
@@ -17,14 +17,22 @@ def get_temp():
 def main():
     while True:
         timestamp = datetime.now().isoformat()
-        temp = get_temp().replace("temp=", "").replace("'C", "")
+        raw_temp = get_temp().replace("temp=", "").replace("'C", "")
+
         try:
-            if float(temp) > 50:
-                with open(log_path, "a") as f:
-                    f.write(f"{timestamp} = {temp}\n")
+            temp = float(raw_temp)
+            level = "INFO"
+            if temp > 70:
+                level = "WARN"
+            log_line = f"{timestamp} - temp_mon - {level} - Temp: {temp}°C\n"
+            with open(log_path, "a") as f:
+                f.write(log_line)
         except ValueError:
-            pass  # skip bad output
+            # Bad output, skip
+            pass
+
         time.sleep(10)
 
 if __name__ == "__main__":
     main()
+
