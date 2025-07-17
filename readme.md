@@ -12,8 +12,9 @@ Built to be:
 
 ## 🚀 Features
 
-- Logs temperature if above `60°C`
-- Writes to `/mnt/data/logs/temp_log.txt` on your external SSD
+- Log temperature every 30 seconds
+- Logs as INFO if less than `70°C` else logs as WARN
+- Writes to `/mnt/data/logs/temp_mon.log` on your external SSD
 - Designed to run as a systemd service
 - Auto-starts on boot, and auto-recovers on failure
 
@@ -52,7 +53,7 @@ sudo ./setup.sh
 ```
 
 This will:
-- Create `/mnt/data/logs/temp_log.txt` (if it doesn't exist)
+- Create `/mnt/data/logs/temp_mon.log` (if it doesn't exist)
 - Copy the systemd service to `/etc/systemd/system/`
 - Reload systemd
 - Enable and start the `temp_mon` service
@@ -63,13 +64,13 @@ This will:
 
 ```bash
 sudo systemctl status temp_mon
-tail -f /mnt/data/logs/temp_log.txt
+tail -f /mnt/data/logs/temp_mon.log
 ```
 
 You should start seeing entries like:
 
 ```
-2025-07-17T19:31:38.320844 = 64.2
+2025-07-17T20:39:48.601167 - temp_mon - INFO - Temp: 60.8°C
 ```
 
 ---
