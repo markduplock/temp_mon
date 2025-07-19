@@ -83,12 +83,6 @@ If you change `temp_mon.py`:
 sudo systemctl restart temp_mon
 ```
 
-If you change `temp_mon.service`:
-
-```bash
-sudo ./setup.sh
-```
-
 ---
 
 ## 🚧 Roadmap / Ideas
@@ -96,7 +90,7 @@ sudo ./setup.sh
 - [ ] Add log rotation
 - [ ] Export to CSV or JSON for graphing
 - [ ] Alerting system (email, Telegram, etc)
-- [ ] Integrate with Flask dashboard (`infra_web`)
+- [ ] Integrate with Flask dashboard
 - [ ] Add average/max temp CLI summary tool
 
 ---
